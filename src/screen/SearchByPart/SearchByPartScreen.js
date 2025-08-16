@@ -273,6 +273,7 @@ const styles = StyleSheet.create({
     color: appColors.fontColor,
     fontFamily: 'Exo2-SemiBold',
     marginBottom: 8,
+    width:"50%",
   },
 });
 

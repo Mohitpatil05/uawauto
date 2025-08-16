@@ -48,7 +48,7 @@ export default class Home extends Component {
             );
             if (response.data?.status) {
                 const banners = response.data.banners.map((item) => ({
-                    uri: `https://argosmob.uk/uaw-auto/public/${item.image_path}`,
+                    uri: `https://mtechsolution.org/${item.image_path}`,
                     link: item.link,
                 }));
                 this.setState({ image: banners });

@@ -136,7 +136,7 @@ console.log("item",item
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.title}>Description : </Text>
-            <Text style={styles.value}>{item.description}</Text>
+            <Text numberOfLines={4} style={styles.value}>{item.description}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -243,5 +243,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Exo2-Regular',
     color: 'black',
     marginBottom: 8,
+    width:"50%",
+    
   },
 });
