@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ScrollView,
 } from 'react-native';
 import ImageSelector from '../../component/ImageSelector';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -70,10 +71,56 @@ export default class Profile extends Component {
     );
   };
 
+  handleDeleteAccount = () => {
+    Alert.alert(
+      'Delete Account',
+      'Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: this.deleteAccount,
+          style: 'destructive',
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  deleteAccount = async () => {
+    try {
+      // Clear all user data from AsyncStorage
+      await AsyncStorage.clear();
+      
+      // Navigate to login screen
+      this.props.navigation.replace('Login');
+      
+      // Show success message
+      showMessage({
+        message: 'Your account has been successfully deleted',
+        type: 'success',
+        position: 'bottom',
+        floating: true,
+      });
+    } catch (error) {
+      console.log('Error deleting account:', error);
+      showMessage({
+        message: 'Failed to delete account. Please try again.',
+        type: 'danger',
+        position: 'bottom',
+        floating: true,
+      });
+    }
+  };
+
   render() {
     const { selectedImage, name, number } = this.state;
 
     return (
+      <ScrollView>
       <View style={styles.container}>
         {/* Profile Image */}
         <TouchableOpacity
@@ -102,14 +149,22 @@ export default class Profile extends Component {
           <Text style={styles.buttonText}>Order History</Text>
         </TouchableOpacity>
 
-        {/* Logout */}
-        <TouchableOpacity
-          style={[styles.button, styles.logoutButton]}
-          onPress={this.handleLogout}
-        >
-          <Icon name="log-out-outline" size={20} color="#fff" style={styles.icon} />
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
+        {/* Account Actions */}
+        <View style={styles.accountActions}>
+          <TouchableOpacity 
+            style={[styles.actionButton, styles.logoutButton]} 
+            onPress={this.handleLogout}
+          >
+            <Text style={styles.actionButtonText}>Logout</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[styles.actionButton, styles.deleteButton]}
+            onPress={this.handleDeleteAccount}
+          >
+            <Text style={[styles.actionButtonText, styles.deleteButtonText]}>Delete Account</Text>
+          </TouchableOpacity>
+        </View>
 
         {/* ImageSelector Modal */}
         <ImageSelector
@@ -118,6 +173,7 @@ export default class Profile extends Component {
           singleSelection={true}
         />
       </View>
+      </ScrollView>
     );
   }
 }
@@ -168,6 +224,24 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  accountActions:{
+    width: '90%',
+    marginTop: 20,
+  },
+  actionButton:{
+    backgroundColor: appColors.primary,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  actionButtonText:{
+    color: '#fff',
+    fontSize: 16,
+    fontFamily: 'Exo2-Bold',
   },
   logoutButton: {
     backgroundColor: '#FF3B30',

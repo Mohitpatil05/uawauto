@@ -101,9 +101,6 @@ export default class ProductList extends Component {
   renderProductCard = ({ item }) => {
     const { navigation } = this.props;
     const { products } = this.state;
-console.log("item",item
-
-)
     return (
       <TouchableOpacity
         style={styles.card}

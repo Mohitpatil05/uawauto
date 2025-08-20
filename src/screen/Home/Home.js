@@ -47,6 +47,7 @@ export default class Home extends Component {
                 homeScreenBanner,
             );
             if (response.data?.status) {
+                console.log(response.data);
                 const banners = response.data.banners.map((item) => ({
                     uri: `https://mtechsolution.org/${item.image_path}`,
                     link: item.link,

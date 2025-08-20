@@ -413,15 +413,7 @@ class UnifiedPDFService {
         }
 
         try {
-            // Request permissions
-            // const hasPermission = await this.requestStoragePermission();
-            // if (!hasPermission) {
-            //     Alert.alert(
-            //         'Permission Denied',
-            //         'Storage permission is required to save the PDF file to Downloads folder.'
-            //     );
-            //     return null;
-            // }
+           
 
             if (onProgress) onProgress(10);
 
@@ -514,24 +506,24 @@ class UnifiedPDFService {
                 throw new Error('PDF generation failed');
             }
         } catch (error) {
-            console.error('PDF generation error:', error);
+            // console.error('PDF generation error:', error);
             
-            showMessage({
-                message: '❌ PDF Generation Failed',
-                description: error.message || 'Failed to generate PDF. Please try again.',
-                type: 'danger',
-                duration: 4000,
-                backgroundColor: '#dc3545',
-                color: '#ffffff',
-            });
+            // showMessage({
+            //     message: '❌ PDF Generation Failed',
+            //     description: error.message || 'Failed to generate PDF. Please try again.',
+            //     type: 'danger',
+            //     duration: 4000,
+            //     backgroundColor: '#dc3545',
+            //     color: '#ffffff',
+            // });
             
-            Alert.alert(
-                'PDF Generation Failed',
-                error.message || 'Failed to generate PDF. Please try again.',
-                [
-                    { text: 'OK', onPress: () => {} }
-                ]
-            );
+            // Alert.alert(
+            //     'PDF Generation Failed',
+            //     error.message || 'Failed to generate PDF. Please try again.',
+            //     [
+            //         { text: 'OK', onPress: () => {} }
+            //     ]
+            // );
             
             return null;
         }
